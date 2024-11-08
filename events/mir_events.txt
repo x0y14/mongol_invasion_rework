@@ -1,0 +1,41 @@
+﻿namespace = mongol_invasion_rework
+
+# Child of Genghis khan's line gains descendant trait
+mongol_invasion_rework.1001 = {
+	type = character_event
+	hidden = yes
+
+	trigger = {
+		OR = {
+			AND = {
+				exists = mother
+				mother = {
+					OR = {
+						has_trait = greatest_of_khans
+						has_trait = mir_genghis_khan_descendant
+					}
+				}
+			}
+			AND = {
+				exists = father
+				father = {
+					OR = {
+						has_trait = greatest_of_khans
+						has_trait = mir_genghis_khan_descendant
+					}
+				}
+			}
+		}
+		NOR = {
+			has_trait = greatest_of_khans
+			has_trait = mir_genghis_khan_descendant
+		}
+	}
+
+	immediate = {
+		add_trait = mir_genghis_khan_descendant
+		every_child = {
+			trigger_event = mongol_invasion_rework.1001
+		}
+	}
+}

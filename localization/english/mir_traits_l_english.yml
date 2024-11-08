@@ -1,0 +1,5 @@
+﻿l_english:
+  # Genghis Khan Descendant
+  trait_mir_genghis_khan_descendant:0 "Genghis Khan Descendant"
+  trait_mir_genghis_khan_descendant_desc:0 "This character is a descendant of the Genghis Khan."
+  trait_mir_genghis_khan_descendant_character_desc:0 "[ROOT.GetCharacter.GetFirstNameNoTooltip] is a descendant of the Genghis Khan."

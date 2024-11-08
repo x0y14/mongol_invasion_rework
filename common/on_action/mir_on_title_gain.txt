@@ -1,0 +1,20 @@
+﻿on_title_gain = {
+	on_actions = {
+		mir_on_genghis_khan_gain_mongol_empire
+	}
+}
+
+mir_on_genghis_khan_gain_mongol_empire = {
+	trigger = {
+		has_trait = greatest_of_khans
+		scope:title = { tier = tier_empire }
+		scope:title = { this = title:e_mongol_empire }
+	}
+	effect = {
+		every_child = {
+			limit = { NOT = { has_trait = mir_genghis_khan_descendant } }
+			add_trait = mir_genghis_khan_descendant
+			trigger_event = mongol_invasion_rework.1001 # line gains descendant trait
+		}
+	}
+}

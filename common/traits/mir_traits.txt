@@ -1,0 +1,36 @@
+﻿mir_genghis_khan_descendant = {
+	category = fame
+	opposites = {
+		greatest_of_khans
+	}
+	
+	icon = greatest_of_khans.dds
+	shown_in_ruler_designer = no
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					NOT = { exists = this }
+				}
+				desc = trait_mir_genghis_khan_descendant_desc
+			}
+			desc = trait_mir_genghis_khan_descendant_character_desc
+		}
+	}
+
+	flag = initial_legitimacy_boost
+
+	ai_war_chance = 10
+	ai_war_cooldown = -0.5
+	same_culture_opinion = 15
+	vassal_limit = 10
+	minority_opinion = 20
+	dread_baseline_add = 25
+	short_reign_duration_mult = -0.5
+	monthly_legitimacy_add = 3
+
+	inherit_chance = 100
+	parent_inheritance_sex = all
+	inherit_from_real_father = no
+	inherit_from_real_mother = no
+}

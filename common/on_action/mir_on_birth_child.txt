@@ -1,0 +1,15 @@
+﻿on_birth_child = {
+	on_actions = {
+		mir_on_genghis_khan_child_birth
+	}
+}
+
+mir_on_genghis_khan_child_birth = {
+	trigger = {
+		exists = father
+		scope:father = { has_trait = greatest_of_khans }
+	}
+	effect = {
+		add_trait = mir_genghis_khan_descendant
+	}
+}
