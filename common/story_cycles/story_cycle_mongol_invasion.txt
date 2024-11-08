@@ -4,6 +4,12 @@
 	on_setup = {
 		story_owner = { # Start conquest of all of Mongolia
 			start_wars_for_mongolia_effect = yes
+			# mir_beg
+			if = {
+				limit = { has_trait = greatest_of_khans }
+				add_the_great_khan_modifier = yes
+			}
+			# mir_end
 		}
 		set_variable = {
 			name = succession_counter
