@@ -16,6 +16,7 @@ modで追加したコード, ファイルです.
 | mir_add | modで新たに追加したコードの開始地点 |
 | mir_rep | modで置換したコードの開始地点 |
 | mir_end | mir_add, mir_repなどで編集した範囲の末端地点 |
+| mir_line| modで新たに追加した1行だけのコード |
 
 使用例
 ```txt
