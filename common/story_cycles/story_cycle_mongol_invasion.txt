@@ -7,7 +7,7 @@
 			# mir_beg
 			if = {
 				limit = { has_trait = greatest_of_khans }
-				add_the_great_khan_modifier = yes
+				mir_add_the_great_khan_modifier = yes
 			}
 			# mir_end
 		}

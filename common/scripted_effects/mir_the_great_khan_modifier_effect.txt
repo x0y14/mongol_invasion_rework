@@ -1,7 +1,7 @@
-﻿add_the_great_khan_modifier = {
+﻿mir_add_the_great_khan_modifier = {
 	add_character_modifier = the_great_khan_modifier
 }
 
-remove_the_great_khan_modifier = {
+mir_remove_the_great_khan_modifier = {
 	remove_character_modifier = the_great_khan_modifier
 }
