@@ -1,4 +1,5 @@
-﻿submit_to_the_great_khan_decision = {
+﻿# 独自のディシジョンを追加するため, 無効化
+submit_to_the_great_khan_decision = {
 	ai_check_interval = 12
 	picture = {
 		reference = "gfx/interface/illustrations/decisions/decision_realm.dds"
