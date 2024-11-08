@@ -4,7 +4,7 @@
 	on_setup = {
 		story_owner = { # Start conquest of all of Mongolia
 			start_wars_for_mongolia_effect = yes
-			# mir_beg
+			# mir_add
 			if = {
 				limit = { has_trait = greatest_of_khans }
 				mir_add_the_great_khan_modifier = yes
