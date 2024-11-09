@@ -11,6 +11,9 @@ mir_on_genghis_khan_gain_mongol_empire = {
 		scope:title = { this = title:e_mongol_empire }
 	}
 	effect = {
+		scope:title = {
+			add_title_law = mir_mongol_elective_succession_law
+		}
 		every_child = {
 			limit = { NOT = { has_trait = mir_genghis_khan_descendant } }
 			add_trait = mir_genghis_khan_descendant
