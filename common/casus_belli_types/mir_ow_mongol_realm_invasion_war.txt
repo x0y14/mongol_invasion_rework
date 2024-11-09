@@ -104,6 +104,38 @@
 	}
 	
 	on_victory = {
+		# mir_add
+		scope:defender = {
+			# 共に歯向かった土地をマーク
+			every_sub_realm_county = {
+				set_variable = {
+					name = mir_resisted_county_with
+					value = scope:defender
+					days = 10
+				}
+			}
+			# 歯向かった人をマーク
+			add_to_list = mir_resisted_characters
+			every_courtier_or_guest = {
+				add_to_list = mir_resisted_characters
+			}
+			every_vassal_or_below = {
+				add_to_list = mir_resisted_characters
+				every_courtier_or_guest = {
+					add_to_list = mir_resisted_characters
+				}
+			}
+		}
+		every_in_list = {
+			list = mir_resisted_characters
+			set_variable = {
+				name = mir_resisted_character_with
+				value = scope:defender
+				days = 10
+			}
+		}
+		# mir_end
+
 		scope:attacker = { show_pow_release_message_effect = yes }
 		
 		# Legitimacy
