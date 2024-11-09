@@ -439,4 +439,59 @@
 			}
 		}
 	}
+
+	# mir_add
+	# FAITH & CULTURE
+	effect_group = {
+		days = 180
+
+		trigger = {
+			story_owner = {
+				OR = {
+					NAND = {
+						faith = faith:tengri_pagan
+						culture = culture:mongol
+					}
+					any_close_or_extended_family_member = {
+						NAND = {
+							faith = faith:tengri_pagan
+							culture = culture:mongol
+						}
+					}
+				}
+			}
+		}
+		triggered_effect = {
+			trigger = {
+				exists = var:succession_counter
+				var:succession_counter <= 2
+
+			}
+			effect = {
+				story_owner = {
+					add_to_list = convert_candidates
+					every_close_or_extended_family_member = {
+						add_to_list = convert_candidates
+					}
+				}
+				every_in_list = {
+					list = convert_candidates
+					limit = { is_ai = yes }
+					if = {
+						limit = {
+							NOT = { culture = culture:mongol }
+						}
+						set_culture = culture:mongol
+					}
+					if = {
+						limit = {
+							NOT = { faith = faith:tengri_pagan }
+						}
+						set_character_faith_with_conversion = faith:tengri_pagan
+					}
+				}
+			}
+		}
+	}
+	# mir_end
 }
