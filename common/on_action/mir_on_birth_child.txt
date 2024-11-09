@@ -1,6 +1,7 @@
 ﻿on_birth_child = {
 	on_actions = {
 		mir_on_genghis_khan_child_birth
+		mir_on_great_khan_child_birth
 	}
 }
 
@@ -11,5 +12,69 @@ mir_on_genghis_khan_child_birth = {
 	}
 	effect = {
 		add_trait = mir_genghis_khan_descendant
+		trigger_event = { on_action = mir_on_great_khan_child_birth }
+	}
+}
+
+mir_on_great_khan_child_birth = {
+	trigger = {
+		has_trait = mir_genghis_khan_descendant
+		exists = father
+		scope:father = {
+			any_owned_story = {
+				story_type = story_mongol_invasion
+			}
+		}
+		has_conventionally_ugly_trigger = yes
+	}
+	effect = {
+		if = {
+			limit = { has_trait = beauty_bad_1 }
+			remove_trait = beauty_bad_1
+		}
+		if = {
+			limit = { has_trait = beauty_bad_2 }
+			remove_trait = beauty_bad_2
+		}
+		if = {
+			limit = { has_trait = beauty_bad_3 }
+			remove_trait = beauty_bad_3
+		}
+		if = {
+			limit = { has_trait = hunchbacked }
+			remove_trait = hunchbacked
+		}
+		if = {
+			limit = { has_trait = one_legged }
+			remove_trait = one_legged
+		}
+		if = {
+			limit = { has_trait = scarred }
+			remove_trait = scarred
+		}
+		if = {
+			limit = { has_trait = one_eyed }
+			remove_trait = one_eyed
+		}
+		if = {
+			limit = { has_trait = scaly }
+			remove_trait = scaly
+		}
+		if = {
+			limit = { has_trait = great_pox }
+			remove_trait = great_pox
+		}
+		if = {
+			limit = { has_trait = dwarf }
+			remove_trait = dwarf
+		}
+		if = {
+			limit = { has_trait = albino }
+			remove_trait = albino
+		}
+		if = {
+			limit = { has_trait = clubfooted }
+			remove_trait = clubfooted
+		}
 	}
 }
