@@ -1,0 +1,221 @@
+﻿on_war_started = {
+	on_actions = {
+		# mir_on_mongol_invasion_war_started
+	}
+}
+
+# mir_on_mongol_invasion_war_started = {
+# 	trigger = {
+# 		# モンゴル侵略CB
+# 		exists = scope:war
+# 		scope:war = { using_cb = mongol_realm_invasion_war }
+# 		# 攻撃者が大ハーンAI
+# 		exists = scope:attacker
+# 		scope:attacker = {
+# 			is_ai = yes
+# 			mir_is_the_great_khan = yes
+# 		}
+# 		# 防衛者が存在(無効な戦争じゃない)
+# 		exists = scope:defender
+# 	}
+# 	effect = {
+# 		scope:defender = {
+# 			# 君主, 封臣含めて国中の人物をリストアップ
+# 			add_to_list = mir_resistance
+# 			every_courtier_or_guest = {
+# 				add_to_list = mir_resistance
+# 			}
+# 			every_vassal_or_below = {
+# 				add_to_list = mir_resistance
+# 				every_courtier_or_guest = {
+# 					add_to_list = mir_resistance
+# 				}
+# 			}
+# 			# その領土をマーク
+# 			every_realm_county = {
+# 				set_variable = {
+# 					name = mir_resisted_county_with
+# 					value = scope:defender
+# 				}
+# 			}
+# 			every_sub_realm_county = {
+# 				set_variable = {
+# 					name = mir_resisted_county_with
+# 					value = scope:defender
+# 				}
+# 			}
+# 		}
+# 		# 歯向かった人物にマーク
+# 		every_in_list = {
+# 			list = mir_resistance
+# 			set_variable = {
+
+# 			}
+# 		}
+# 	}
+# }
+
+
+on_war_won_attacker = {
+	on_actions = {
+		mir_on_mongol_invasion_war_won_mongol
+	}
+}
+
+mir_on_mongol_invasion_war_won_mongol = {
+	trigger = {
+		# モンゴル侵略CB
+		exists = scope:war
+		scope:war = { using_cb = mongol_realm_invasion_war }
+		# 攻撃者が大ハーンAI
+		exists = scope:attacker
+		scope:attacker = {
+			is_ai = yes
+			mir_is_the_great_khan = yes
+		}
+		# 防衛者が存在(無効な戦争じゃない)
+		exists = scope:defender
+	}
+	effect = {
+		scope:attacker = {
+			# 領土変更
+			create_title_and_vassal_change = {
+				type = revoked
+				save_scope_as = change
+				add_claim_on_loss = yes
+			}
+			# 領土内のすべての抵抗州
+			every_sub_realm_county = {
+				limit = {
+					has_variable = mir_resisted_county_with
+					var:mir_resisted_county_with = scope:defender
+					NOT = { holder = scope:attacker }
+				}
+				# 没収
+				change_title_holder = {
+					holder = scope:attacker
+					change = scope:change
+				}
+				# 反逆者探し
+				holder = {
+					if = {
+						limit = {
+							OR = {
+								AND = {
+									has_variable = mir_resisted_character_with
+									var:mir_resisted_character_with = scope:defender
+								}
+								this = scope:defender
+							}
+						}
+						add_to_list = mir_in_sub_realm_resistance
+					}
+					every_courtier_or_guest = {
+						limit = {
+							has_variable = mir_resisted_character_with
+							var:mir_resisted_character_with = scope:defender
+						}
+						add_to_list = mir_in_sub_realm_resistance
+					}
+				}
+				every_county_province = {
+					every_character_in_location = {
+						limit = {
+							has_variable = mir_resisted_character_with
+							var:mir_resisted_character_with = scope:defender
+						}
+						add_to_list = mir_in_sub_realm_resistance
+					}
+				}
+			}
+			# 逮捕
+			every_in_list = {
+				list = mir_in_sub_realm_resistance
+				limit = { is_imprisoned = no }
+				save_scope_as = mir_resistance
+				hard_imprison_character_effect = {
+					TARGET = scope:mir_resistance
+					IMPRISONER = scope:attacker
+				}
+				clear_saved_scope = mir_resistance
+			}
+			# 領土没収
+			resolve_title_and_vassal_change = scope:change
+			# 処刑
+			every_prisoner = {
+				limit = {
+					has_variable = mir_resisted_character_with
+					var:mir_resisted_character_with = scope:defender
+				}
+				# 男性, 子ども
+				if = {
+					limit = {
+						OR = {
+							is_male = yes
+							AND = {
+								is_female = yes
+								is_adult = no
+							}
+						}
+					}
+					death = {
+						death_reason = death_trampled
+						killer = scope:attacker
+					}
+				}
+				if = {
+					limit = {
+						is_female = yes
+						is_adult = yes
+						fertility >= low_fertility
+						NOR = {
+							has_trait = great_pox
+							has_trait = lovers_pox
+							has_trait = early_great_pox
+							has_trait = deviant
+						}
+						NOR = {
+							is_betrothed = yes
+							is_close_or_extended_family_of = scope:attacker
+						}
+						trigger_if = {
+							limit = { exists = dynasty }
+							NOT = { dynasty = scope:attacker.dynasty }
+						}
+					}
+					save_scope_as = female_prisoner
+					if = {
+						limit = {
+							OR = {
+								scope:female_prisoner = { is_married = yes }
+								scope:female_prisoner = { age >= 35 }
+							}
+						}
+						death = {
+							death_reason = death_trampled
+							killer = scope:attacker
+						}
+					}
+					else = {
+						scope:female_prisoner = {
+							release_from_prison = yes
+						}
+						scope:attacker = {
+							make_concubine = scope:female_prisoner
+							random_list = {
+								10 = {
+									scope:female_prisoner = { make_pregnant = { father = scope:attacker } }
+								}
+								90 = {}
+							}
+							remove_concubine = scope:female_prisoner
+						}
+					}
+					clear_saved_scope = female_prisoner
+				}
+			}
+			# 首都変更
+			mir_great_khan_change_capital = yes
+		}
+	}
+}
