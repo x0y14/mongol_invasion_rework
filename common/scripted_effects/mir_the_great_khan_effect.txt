@@ -1,0 +1,84 @@
+﻿mir_great_khan_change_capital = {
+	if = {
+		limit = {
+			mir_is_the_great_khan = yes
+			highest_held_title_tier = tier_empire
+			is_landed = yes
+			exists = capital_county
+		}
+		save_scope_as = greate_khan
+		if = {
+			limit = {
+				# countyを持っている
+				any_held_title = {
+					tier = tier_county
+					# ステップかプレーン
+					title_province = {
+						OR = {
+							terrain = steppe
+							terrain = plains
+						}
+					}
+					# 首都ではない
+					NOT = { this = scope:greate_khan.capital_county }
+					# 大ハーンが完全にコントロールできてはいない
+					# (攻撃対象となる可能性が高い場所に近い)
+					duchy = {
+						kingdom = {
+							empire = {
+								scope:greate_khan = {
+									NOT = { completely_controls = prev }
+								}
+							}
+						}
+					}
+				}
+			}
+			random_held_title = {
+				limit = {
+					tier = tier_county
+					title_province = {
+						OR = {
+							terrain = steppe
+							terrain = plains
+						}
+					}
+					duchy = {
+						kingdom = {
+							empire = {
+								scope:greate_khan = {
+									NOT = { completely_controls = prev }
+								}
+							}
+						}
+					}
+				}
+				weight = {
+					base = 1
+					modifier = {
+						title_province = { terrain = plains }
+						add = 1
+					}
+					modifier = {
+						title_province = { terrain = steppe }
+						add = 2
+					}
+					modifier = {
+						duchy.kingdom = { title_capital_county = prev }
+						add = 3
+					}
+				}
+				save_scope_as = new_mongol_capital
+			}
+			if = {
+				limit = { exists = scope:new_mongol_capital }
+				primary_title = {
+					set_capital_county = scope:new_mongol_capital
+				}
+				set_realm_capital = scope:new_mongol_capital
+				clear_saved_scope = new_mongol_capital
+			}
+		}
+		clear_saved_scope = great_khan
+	}
+}
