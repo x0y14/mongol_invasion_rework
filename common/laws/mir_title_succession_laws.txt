@@ -1,0 +1,28 @@
+﻿title_succession_laws = {
+	mir_mongol_elective_succession_law = {
+		can_have = {
+			government_has_flag = government_is_tribal
+			culture = { has_cultural_pillar = heritage_mongolic }
+			highest_held_title_tier = tier_empire
+		}
+		can_pass = {
+			can_change_title_law_trigger = yes
+			culture = { has_cultural_pillar = heritage_mongolic }
+		}
+		can_title_have = {
+			can_title_have_law_general_trigger = yes
+		}
+		succession = {
+			order_of_succession = election
+			election_type = mir_mongol_elective
+		}
+		flag = elective_succession_law
+		title_allegiance_opinion = 5
+		revoke_cost = {
+			prestige = change_title_succession_law_prestige_cost
+		}
+		pass_cost = {
+			prestige = change_title_succession_law_prestige_cost
+		}
+	}
+}

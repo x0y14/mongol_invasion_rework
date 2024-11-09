@@ -1,0 +1,131 @@
+﻿elector_voting_pattern_circumstances_mongol_elective_modifier = {
+	# AGE
+	modifier = {
+		desc = mir_tooltip_mongol_elector_vote_too_young
+		scope:candidate = { is_adult = no }
+		add = -1000
+	}
+	# TRAIT
+	modifier = {
+		desc = mir_tooltip_mongol_elector_vote_genghis_khan_descendant
+		scope:candidate = { has_trait = mir_genghis_khan_descendant }
+		add = 10
+	}
+	# SKILL
+	modifier = { #Martial score
+		desc = tooltip_scandinavian_elector_vote_prowess
+		NOR = {
+			this = scope:holder
+			this = scope:candidate
+		}
+		scope:candidate = { prowess >= 10 }
+		add = {
+			value = 5
+			if = {
+				limit = {
+					scope:candidate = { prowess > 12 }
+				}
+				add = 5
+			}
+			if = {
+				limit = {
+					scope:candidate = { prowess > 16 }
+				}
+				add = 5
+			}
+			if = {
+				limit = {
+					scope:candidate = { prowess > 18 }
+				}
+				add = 5
+			}
+			if = {
+				limit = {
+					scope:candidate = { prowess > 20 }
+				}
+				add = 5
+			}
+			if = {
+				limit = {
+					scope:candidate = { prowess > 25 }
+				}
+				add = 5
+			}
+			if = {
+				limit = {
+					scope:candidate = { prowess > 30 }
+				}
+				add = 5
+			}
+		}
+	}
+	modifier = { #Martial score
+		desc = mir_tooltip_mongol_elector_vote_martial
+		NOR = {
+			this = scope:holder
+			this = scope:candidate
+		}
+		scope:candidate = { martial >= 10 }
+		add = {
+			value = 5
+			if = {
+				limit = {
+					scope:candidate = { martial > 12 }
+				}
+				add = 5
+			}
+			if = {
+				limit = {
+					scope:candidate = { martial > 16 }
+				}
+				add = 5
+			}
+			if = {
+				limit = {
+					scope:candidate = { martial > 18 }
+				}
+				add = 5
+			}
+			if = {
+				limit = {
+					scope:candidate = { martial > 20 }
+				}
+				add = 5
+			}
+			if = {
+				limit = {
+					scope:candidate = { martial > 25 }
+				}
+				add = 5
+			}
+			if = {
+				limit = {
+					scope:candidate = { martial > 30 }
+				}
+				add = 5
+			}
+		}
+	}
+	modifier = {
+		desc = mir_tooltip_mongol_elector_vote_military_strength
+		scope:candidate = { max_military_strength > 0 }
+		add = {
+			value = scope:candidate.max_military_strength
+			multiply = 0.1
+			round = yes
+		}
+	}
+	modifier = {
+		desc = mir_tooltip_mongol_elector_vote_sub_realm_size
+		scope:candidate = {
+			is_landed = yes
+			highest_held_title_tier >= tier_county
+			sub_realm_size > 0
+		}
+		add = {
+			value = scope:candidate.sub_realm_size
+			multiply = 10.0
+			round = yes
+		}
+	}
+}

@@ -1,0 +1,17 @@
+﻿l_english:
+  # Law
+  mir_mongol_elective_succession_law:0 "Mongol Elective"
+  mir_mongol_elective_succession_law_subname:0 "Kurultai"
+  mir_mongol_elective_succession_law_effects:1 "TODO"
+  mir_mongol_elective_candidates:0 "Dynasty Members"
+  mir_mongol_elective_candidates_tooltip:1 "TODO"
+  mir_mongol_elective_electors:0 "Ruler and Close Family and Tribal Vassals"
+  mir_mongol_elective_electors_tooltip:1 "TODO"
+  # Election
+  ## Tooltip
+  mir_tooltip_mongol_vote_strength_genghis_khan_descendant:0 "Genghis Khan Descendant: $VALUE|=+0$" 
+  mir_tooltip_mongol_elector_vote_too_young:0 "[candidate.GetSheHe|U] is too young to be a leader: $VALUE|=+0$"
+  mir_tooltip_mongol_elector_vote_genghis_khan_descendant:0 "[candidate.GetSheHe|U] is [GetTrait('mir_genghis_khan_descendant').GetName( candidate.Self )]"
+  mir_tooltip_mongol_elector_vote_martial:0 "[candidate.GetSheHe|U] is a warrior of great [martial|E]: $VALUE|=+0$"
+  mir_tooltip_mongol_elector_vote_military_strength:0 "[candidate.GetShortUIName] lacks levies: $VALUE|=+0$"
+  mir_tooltip_mongol_elector_vote_sub_realm_size:0 "[candidate.GetShortUIName] realm size: $VALUE|=+0$"

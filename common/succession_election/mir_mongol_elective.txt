@@ -1,0 +1,140 @@
+﻿# The entry should be named in the same way that the elective succession law is named to define it's voter's logic.
+# Root scope - Elector, the character voting in the election.
+# scope:candidate scope - Candidate, Character considered for the title.
+# scope:title scope - Title, The title the nomination is for.
+# scope:holder scope - Ruler, The ruler currently holding the title.
+# scope:holder_candidate scope - Favored Candidate, The title owner's candidate.
+# The voter will vote for the top score candidate calculated from this script.
+
+
+
+mir_mongol_elective = { #Kurultai(部族会議)
+	elector_vote_strength = {
+		base = 0
+		modifier = { #Imperial Dignity
+			desc = tooltip_feudal_vote_strength_emperor_tier
+			add = 50
+			highest_held_title_tier = tier_empire
+		}
+		modifier = { #Royal Dignity
+			desc = tooltip_feudal_vote_strength_king_tier
+			add = 10
+			highest_held_title_tier = tier_kingdom
+		}
+		modifier = { #Princely Dignity
+			desc = tooltip_feudal_vote_strength_duke_tier
+			add = 5
+			highest_held_title_tier = tier_duchy
+		}
+		modifier = { #Powerful Vassal
+			desc = tooltip_feudal_vote_strength_powerful_vassal
+			add = {
+				value = 1
+				if = { #Additional point if the vassal is more powerful than the current ruler (Vassal King who meets this condition will have more voting power than the Emperor himself (1+1+1+2 = 5))
+					limit = {
+						max_military_strength > scope:holder.max_military_strength
+					}
+					add = 2
+				}
+			}
+			NOT = { this = scope:holder }
+			is_powerful_vassal = yes
+			liege = scope:holder
+		}
+		modifier = {
+			desc = mir_tooltip_mongol_vote_strength_genghis_khan_descendant
+			add = 3
+			has_trait = mir_genghis_khan_descendant
+		}
+		min = 1
+	}
+	
+	electors = {  
+		add = holder
+		add = holder_spouses
+		add = {
+			type = holder_close_or_extended_family
+			limit = {
+				trigger_if = {
+					limit = {
+						scope:holder.culture = {
+							has_cultural_parameter = martial_custom_male_only_combatant
+						}
+					}
+					is_male = yes
+				}
+				trigger_if = {
+					limit = {
+						scope:holder.culture = {
+							has_cultural_parameter = martial_custom_female_only_combatant
+						}
+						is_female = yes
+					}
+				}
+			}
+		}
+		add = {
+			type = holder_direct_vassals
+			limit = {
+				# 考えることができる人
+				is_adult = yes
+				NOT = { has_trait = incapable }
+				# 部族
+				is_landed = yes
+				highest_held_title_tier >= tier_county
+				government_has_flag = government_is_tribal
+			}
+		}
+	}
+
+	candidate_score = {
+		base = 0
+		######################	Elector self-voting pattern	##########################
+		elector_self_voting_pattern_feudal_elective_modifier = yes
+
+		##########################	Holder voting pattern	##########################
+		holder_voting_pattern_feudal_elective_modifier = yes
+
+		##########################	Elector voting patterns (circumstances)	##########################
+		elector_voting_pattern_circumstances_tribal_elective_modifier = yes
+		elector_voting_pattern_circumstances_mongol_elective_modifier = yes
+
+		##########################	Elector voting patterns (prestige/piety)	##########################
+		elector_voting_pattern_prestige_piety_feudal_elective_modifier = yes
+
+		##########################	Elector voting patterns (traits)	##########################
+		elector_voting_pattern_traits_feudal_elective_modifier = yes
+
+		##########################	Elector voting patterns (opinion)	##########################
+		elector_voting_pattern_opinion_feudal_elective_modifier = yes
+
+		##########################	Elector voting patterns (misc)	##########################
+		elector_voting_pattern_circumstances_misc_elective_modifier = yes
+	}
+	
+	#scope:candidate = Candidate, scope:title = Title, scope:holder_candidate = Candidate currently selected by ruler.
+	candidates = {
+		add = {
+			type = holder_dynasty
+			limit = {
+				feudal_elective_potential_landless_dynastic_candidate_trigger = yes
+				trigger_if = {
+					limit = {
+						scope:holder.culture = {
+							has_cultural_parameter = martial_custom_male_only_combatant
+						}
+						is_male = yes
+					}
+				}
+				trigger_if = {
+					limit = {
+						scope:holder.culture = {
+							has_cultural_parameter = martial_custom_female_only_combatant
+						}
+						is_female = yes
+					}
+				}
+			}
+		}
+	}
+}
